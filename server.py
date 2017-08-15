@@ -19,6 +19,9 @@ class apiapp(object):
         adapter = self.map.bind_to_environ(request.environ)
         try:
             endpoint, values = adapter.match()
+            for key,value in values.iteritems():
+                if key not in request.environ:
+                    request.environ[key] = value
             resp = self.handlers[endpoint](request)
             return resp
         except HTTPException, e:
@@ -34,14 +37,14 @@ class apiapp(object):
 
 
 
-custommaps = Map([
+routemaps = Map([
                   Rule('/app/accounts/<shortid>',endpoint='accounts'),
                   Rule('/app/accounts/', endpoint='accounts'),
                   Rule('/app/accounts',endpoint='accounts')
                   ])
 
 handlers = {'accounts': accounts}
-appli = apiapp(custommaps, handlers)
+appli = apiapp(routemaps, handlers)
 
 print "All Done"
 run_simple('127.0.0.1', 5000, appli)
