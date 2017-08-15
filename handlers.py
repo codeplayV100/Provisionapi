@@ -3,19 +3,18 @@
 from werkzeug.wrappers import Request,Response
 
 
-def default(request):
-    response = Response('Hello World!', mimetype='text/text')
-    return response
-
-
-def satish(request):
-    response = Response('{"satish":"yerramsetti"}', mimetype='type/json')
-    return response
-
-
 def accounts(request):
-    response = Response('{"account": "satishy"}',mimetype='type/json')
-    return Response
+    print request.url
+    if request.method =="GET":
+        default = "satish"
+        print request.environ
+        if request.environ.get("shortid",None) !=None:
+            default = request.environ["shortid"]
+        response = Response('{"account": %s}'%(default),mimetype='text/json')
+        return response
+    if request.method == "POST":
+        response = Response('{"status": "Not implemented"}',mimetype='text/json')
+        return response
 
 
 def jobs(request):

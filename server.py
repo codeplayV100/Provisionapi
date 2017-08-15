@@ -19,7 +19,7 @@ class apiapp(object):
         adapter = self.map.bind_to_environ(request.environ)
         try:
             endpoint, values = adapter.match()
-            resp = self.handlers[endpoint](request.environ)
+            resp = self.handlers[endpoint](request)
             return resp
         except HTTPException, e:
             return e
@@ -34,14 +34,13 @@ class apiapp(object):
 
 
 
-
-
 custommaps = Map([
-                  Rule('/app', endpoint='default'),
-                  Rule('/app/satish', endpoint='satish'),
-                  Rule('/app/accounts[.]+',endpoint='accounts')
+                  Rule('/app/accounts/<shortid>',endpoint='accounts'),
+                  Rule('/app/accounts/', endpoint='accounts'),
+                  Rule('/app/accounts',endpoint='accounts')
                   ])
-handlers = {'default': default, 'satish': satish}
+
+handlers = {'accounts': accounts}
 appli = apiapp(custommaps, handlers)
 
 print "All Done"
