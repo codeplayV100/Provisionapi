@@ -3,6 +3,18 @@
 from werkzeug.wrappers import Request,Response
 
 
+def accounts_get(request):
+    pass
+
+def accounts_put(request):
+    pass
+
+def accounts_post(request):
+    pass
+
+
+
+
 def accounts(request):
     print request.url
     if request.method =="GET":

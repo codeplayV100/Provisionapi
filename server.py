@@ -40,7 +40,8 @@ class apiapp(object):
 routemaps = Map([
                   Rule('/app/accounts/<shortid>',endpoint='accounts'),
                   Rule('/app/accounts/', endpoint='accounts'),
-                  Rule('/app/accounts',endpoint='accounts')
+                  Rule('/app/accounts',endpoint='accounts'),
+                  Rule('/app/jobs',endpoint='acounts')
                   ])
 
 handlers = {'accounts': accounts}
